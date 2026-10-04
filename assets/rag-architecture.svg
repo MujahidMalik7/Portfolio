@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif">
+<title>Multi-Tenant RAG Platform: Architecture</title>
+<desc>Architecture diagram of a multi-tenant RAG platform: React client, FastAPI server with JWT auth, document ingestion, pgvector hybrid retrieval with tenant filtering, and streamed LLM answers.</desc>
+<defs><filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0B1B3A" flood-opacity=".10"/></filter>
+<marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2F5DA8"/></marker>
+<marker id="ams" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2F5DA8"/></marker>
+<marker id="as" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5B8DEF"/></marker>
+<marker id="ass" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5B8DEF"/></marker>
+</defs>
+<rect width="1600" height="900" fill="#F6F7FA"/>
+<text x="24" y="48" font-size="34" font-weight="600" fill="#0B1B3A" text-anchor="start" font-family="Playfair Display, Georgia, serif">Multi-Tenant RAG Platform: Architecture</text>
+<rect x="16" y="296" width="220" height="252" rx="20" fill="#EAF0F8" stroke="rgba(11,27,58,.10)" stroke-width="1"/>
+<text x="32" y="320" font-size="15" font-weight="600" fill="#4A5566" text-anchor="start" letter-spacing="1.8">FRONTEND</text>
+<rect x="16" y="568" width="220" height="144" rx="20" fill="#EAF0F8" stroke="rgba(11,27,58,.10)" stroke-width="1"/>
+<text x="32" y="592" font-size="15" font-weight="600" fill="#4A5566" text-anchor="start" letter-spacing="1.8">EXTERNAL AI</text>
+<rect x="378" y="76" width="350" height="636" rx="20" fill="#EAF0F8" stroke="rgba(11,27,58,.10)" stroke-width="1"/>
+<text x="394" y="100" font-size="15" font-weight="600" fill="#4A5566" text-anchor="start" letter-spacing="1.8">API LAYER</text>
+<rect x="884" y="76" width="700" height="160" rx="20" fill="#EAF0F8" stroke="rgba(11,27,58,.10)" stroke-width="1"/>
+<text x="900" y="100" font-size="15" font-weight="600" fill="#4A5566" text-anchor="start" letter-spacing="1.8">INGESTION PIPELINE</text>
+<rect x="884" y="296" width="500" height="216" rx="20" fill="#EAF0F8" stroke="rgba(11,27,58,.10)" stroke-width="1"/>
+<text x="900" y="320" font-size="15" font-weight="600" fill="#4A5566" text-anchor="start" letter-spacing="1.8">DATA LAYER</text>
+<rect x="884" y="552" width="340" height="148" rx="20" fill="#EAF0F8" stroke="rgba(11,27,58,.10)" stroke-width="1"/>
+<text x="900" y="576" font-size="15" font-weight="600" fill="#4A5566" text-anchor="start" letter-spacing="1.8">RETRIEVAL PIPELINE</text>
+<rect x="28" y="336" width="196" height="196" rx="14" fill="#fff" stroke="rgba(11,27,58,.12)" stroke-width="1" filter="url(#sh)"/>
+<text x="126" y="372" font-size="22" font-weight="600" fill="#0B1B3A" text-anchor="middle">Client app</text>
+<text x="126" y="398" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">React · Vite ·</text>
+<text x="126" y="420" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">Tailwind</text>
+<path d="M44 440H208" stroke="rgba(11,27,58,.14)" stroke-width="1"/>
+<text x="126" y="466" font-size="18" font-weight="600" fill="#4A5566" text-anchor="middle">Admin dashboards:</text>
+<text x="126" y="488" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">usage by company</text>
+<text x="126" y="510" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">and user</text>
+<rect x="28" y="608" width="196" height="88" rx="14" fill="#fff" stroke="rgba(11,27,58,.12)" stroke-width="1" filter="url(#sh)"/>
+<text x="126.0" y="638" font-size="22" font-weight="600" fill="#0B1B3A" text-anchor="middle">LLM service</text>
+<text x="126.0" y="660" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">Anthropic Claude,</text>
+<text x="126.0" y="682" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">streaming</text>
+<rect x="394" y="116" width="318" height="84" rx="12" fill="#DCE6F5" stroke="rgba(11,27,58,.12)"/>
+<text x="408" y="142" font-size="18" font-weight="600" fill="#0B1B3A" text-anchor="start">3-tier RBAC:</text>
+<text x="408" y="164" font-size="18" font-weight="400" fill="#0B1B3A" text-anchor="start">super_admin · tenant_admin ·</text>
+<text x="408" y="186" font-size="18" font-weight="400" fill="#0B1B3A" text-anchor="start">member</text>
+<rect x="394" y="214" width="150" height="72" rx="14" fill="#fff" stroke="rgba(11,27,58,.12)" stroke-width="1" filter="url(#sh)"/>
+<text x="469.0" y="245" font-size="22" font-weight="600" fill="#0B1B3A" text-anchor="middle">Auth</text>
+<text x="469.0" y="269" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">JWT · bcrypt</text>
+<rect x="560" y="214" width="152" height="72" rx="14" fill="#fff" stroke="rgba(11,27,58,.12)" stroke-width="1" filter="url(#sh)"/>
+<text x="636.0" y="245" font-size="22" font-weight="600" fill="#0B1B3A" text-anchor="middle">Rate limiter</text>
+<text x="636.0" y="269" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">SlowAPI</text>
+<rect x="394" y="350" width="318" height="340" rx="14" fill="#fff" stroke="rgba(11,27,58,.12)" stroke-width="1" filter="url(#sh)"/>
+<text x="553.0" y="506" font-size="22" font-weight="600" fill="#0B1B3A" text-anchor="middle">API server</text>
+<text x="553.0" y="536" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">FastAPI, async</text>
+<rect x="900" y="114" width="204" height="100" rx="14" fill="#fff" stroke="rgba(11,27,58,.12)" stroke-width="1" filter="url(#sh)"/>
+<text x="1002.0" y="154" font-size="22" font-weight="600" fill="#0B1B3A" text-anchor="middle">Text extraction</text>
+<text x="1002.0" y="182" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">PDF · DOCX</text>
+<rect x="1128" y="114" width="204" height="100" rx="14" fill="#fff" stroke="rgba(11,27,58,.12)" stroke-width="1" filter="url(#sh)"/>
+<text x="1230.0" y="148" font-size="22" font-weight="600" fill="#0B1B3A" text-anchor="middle">Chunking</text>
+<text x="1230.0" y="174" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">content-aware,</text>
+<text x="1230.0" y="196" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">3 strategies</text>
+<rect x="1356" y="114" width="204" height="100" rx="14" fill="#fff" stroke="rgba(11,27,58,.12)" stroke-width="1" filter="url(#sh)"/>
+<text x="1458.0" y="154" font-size="22" font-weight="600" fill="#0B1B3A" text-anchor="middle">Embedding model</text>
+<text x="1458.0" y="182" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">BGE-base</text>
+<rect x="900" y="350" width="200" height="60" rx="14" fill="#fff" stroke="rgba(11,27,58,.12)" stroke-width="1" filter="url(#sh)"/>
+<text x="1000.0" y="387" font-size="22" font-weight="600" fill="#0B1B3A" text-anchor="middle">File storage</text>
+<rect x="900" y="420" width="230" height="76" rx="14" fill="#fff" stroke="rgba(11,27,58,.12)" stroke-width="1" filter="url(#sh)"/>
+<text x="1015.0" y="452" font-size="22" font-weight="600" fill="#0B1B3A" text-anchor="middle">Relational DB</text>
+<text x="1015.0" y="478" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">PostgreSQL</text>
+<rect x="1146" y="366" width="222" height="94" rx="14" fill="#fff" stroke="rgba(11,27,58,.12)" stroke-width="1" filter="url(#sh)"/>
+<text x="1257.0" y="402" font-size="22" font-weight="600" fill="#0B1B3A" text-anchor="middle">Vector store</text>
+<text x="1257.0" y="430" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">PostgreSQL + pgvector</text>
+<rect x="900" y="592" width="308" height="92" rx="14" fill="#fff" stroke="rgba(11,27,58,.12)" stroke-width="1" filter="url(#sh)"/>
+<text x="1054.0" y="628" font-size="22" font-weight="600" fill="#0B1B3A" text-anchor="middle">Retrieval engine</text>
+<text x="1054.0" y="656" font-size="18" font-weight="400" fill="#4A5566" text-anchor="middle">hybrid: vector + keyword</text>
+<path d="M224 382H394" fill="none" stroke="#2F5DA8" stroke-width="3" stroke-linejoin="round" marker-end="url(#am)"/>
+<text x="309" y="372" font-size="18" font-weight="500" fill="#24497F" text-anchor="middle" stroke="#F6F7FA" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Upload file</text>
+<path d="M224 428H394" fill="none" stroke="#2F5DA8" stroke-width="3" stroke-linejoin="round" marker-end="url(#am)"/>
+<text x="309" y="418" font-size="18" font-weight="500" fill="#24497F" text-anchor="middle" stroke="#F6F7FA" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Question</text>
+<path d="M394 490H224" fill="none" stroke="#2F5DA8" stroke-width="3" stroke-linejoin="round" marker-end="url(#am)"/>
+<text x="309" y="448" font-size="18" font-weight="500" fill="#24497F" text-anchor="middle" stroke="#F6F7FA" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Streamed answer</text>
+<text x="309" y="468" font-size="18" font-weight="500" fill="#24497F" text-anchor="middle" stroke="#F6F7FA" stroke-width="6" paint-order="stroke" stroke-linejoin="round">+ citations</text>
+<path d="M394 636H224" fill="none" stroke="#2F5DA8" stroke-width="3" stroke-linejoin="round" marker-end="url(#am)"/>
+<text x="309" y="626" font-size="18" font-weight="500" fill="#24497F" text-anchor="middle" stroke="#F6F7FA" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Prompt + context</text>
+<path d="M224 672H394" fill="none" stroke="#2F5DA8" stroke-width="3" stroke-linejoin="round" marker-end="url(#am)"/>
+<text x="309" y="662" font-size="18" font-weight="500" fill="#24497F" text-anchor="middle" stroke="#F6F7FA" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Token stream</text>
+<path d="M420 350V286" fill="none" stroke="#5B8DEF" stroke-width="3" stroke-linejoin="round" marker-end="url(#as)"/>
+<text x="432" y="308" font-size="18" font-weight="500" fill="#24497F" text-anchor="start" stroke="#EAF0F8" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Verify JWT</text>
+<path d="M636 286V350" fill="none" stroke="#2F5DA8" stroke-width="3" stroke-linecap="round"/>
+<text x="624" y="340" font-size="18" font-weight="500" fill="#24497F" text-anchor="end" stroke="#EAF0F8" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Wraps chat endpoint</text>
+<path d="M712 366H852V164H900" fill="none" stroke="#5B8DEF" stroke-width="3" stroke-linejoin="round" marker-end="url(#as)"/>
+<text x="782" y="356" font-size="18" font-weight="500" fill="#24497F" text-anchor="middle" stroke="#F6F7FA" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Background task</text>
+<path d="M712 396H900" fill="none" stroke="#5B8DEF" stroke-width="3" stroke-linejoin="round" marker-end="url(#as)"/>
+<text x="806" y="386" font-size="18" font-weight="500" fill="#24497F" text-anchor="middle" stroke="#F6F7FA" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Save file</text>
+<path d="M712 432H900" fill="none" stroke="#5B8DEF" stroke-width="3" stroke-linejoin="round" marker-end="url(#as)"/>
+<text x="806" y="422" font-size="18" font-weight="500" fill="#24497F" text-anchor="middle" stroke="#F6F7FA" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Document metadata</text>
+<path d="M712 462H900" fill="none" stroke="#5B8DEF" stroke-width="3" stroke-linejoin="round" stroke-dasharray="9 7" marker-end="url(#as)"/>
+<text x="806" y="452" font-size="18" font-weight="500" fill="#24497F" text-anchor="middle" stroke="#F6F7FA" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Token + cost log</text>
+<path d="M712 616H900" fill="none" stroke="#2F5DA8" stroke-width="3" stroke-linejoin="round" marker-end="url(#am)"/>
+<text x="806" y="606" font-size="18" font-weight="500" fill="#24497F" text-anchor="middle" stroke="#F6F7FA" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Tenant-filtered query</text>
+<path d="M900 660H712" fill="none" stroke="#2F5DA8" stroke-width="3" stroke-linejoin="round" marker-end="url(#am)"/>
+<text x="806" y="650" font-size="18" font-weight="500" fill="#24497F" text-anchor="middle" stroke="#F6F7FA" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Relevant chunks</text>
+<path d="M1104 164H1128" fill="none" stroke="#2F5DA8" stroke-width="3" stroke-linejoin="round" marker-end="url(#am)"/>
+<path d="M1332 164H1356" fill="none" stroke="#2F5DA8" stroke-width="3" stroke-linejoin="round" marker-end="url(#am)"/>
+<path d="M1458 214V270H1257V366" fill="none" stroke="#2F5DA8" stroke-width="3" stroke-linejoin="round" marker-end="url(#am)"/>
+<text x="1362" y="262" font-size="18" font-weight="500" fill="#24497F" text-anchor="middle" stroke="#F6F7FA" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Store chunks</text>
+<path d="M1190 592V460" fill="none" stroke="#2F5DA8" stroke-width="3" stroke-linejoin="round" marker-end="url(#am)" marker-start="url(#ams)"/>
+<text x="1202" y="536" font-size="18" font-weight="500" fill="#24497F" text-anchor="start" stroke="#F6F7FA" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Hybrid search</text>
+<path d="M1115 592V496" fill="none" stroke="#5B8DEF" stroke-width="2" stroke-linejoin="round" stroke-dasharray="9 7" marker-end="url(#as)"/>
+<text x="1103" y="536" font-size="18" font-weight="500" fill="#24497F" text-anchor="end" stroke="#F6F7FA" stroke-width="6" paint-order="stroke" stroke-linejoin="round">Citation metadata</text>
+<path d="M378 756V768H1384V756" fill="none" stroke="#C9A96E" stroke-width="3" stroke-linejoin="round"/>
+<rect x="581" y="780" width="600" height="40" rx="20" fill="#C9A96E" fill-opacity=".2" stroke="#C9A96E" stroke-width="1.5"/>
+<text x="881" y="807" font-size="20" font-weight="600" fill="#0B1B3A" text-anchor="middle">Tenant isolation: company_id filter on every query</text>
+<text x="1584" y="806" font-size="18" font-weight="400" fill="#4A5566" text-anchor="end">Deployed with Docker Compose</text>
+<rect x="54" y="842" width="194" height="36" rx="18" fill="#fff" stroke="rgba(11,27,58,.12)"/>
+<text x="151.0" y="866" font-size="18" font-weight="500" fill="#0B1B3A" text-anchor="middle" >Hybrid retrieval</text>
+<rect x="264" y="842" width="254" height="36" rx="18" fill="#fff" stroke="rgba(11,27,58,.12)"/>
+<text x="391.0" y="866" font-size="18" font-weight="500" fill="#0B1B3A" text-anchor="middle" >Content-aware chunking</text>
+<rect x="534" y="842" width="333" height="36" rx="18" fill="#fff" stroke="rgba(11,27,58,.12)"/>
+<text x="700.5" y="866" font-size="18" font-weight="500" fill="#0B1B3A" text-anchor="middle" >Per-user token + cost tracking</text>
+<rect x="883" y="842" width="343" height="36" rx="18" fill="#fff" stroke="rgba(11,27,58,.12)"/>
+<text x="1054.5" y="866" font-size="18" font-weight="500" fill="#0B1B3A" text-anchor="middle" >Streamed answers with citations</text>
+<rect x="1242" y="842" width="303" height="36" rx="18" fill="#fff" stroke="rgba(11,27,58,.12)"/>
+<text x="1393.5" y="866" font-size="18" font-weight="500" fill="#0B1B3A" text-anchor="middle" >Tenant-level data isolation</text>
+</svg>
