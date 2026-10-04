@@ -122,6 +122,7 @@ a:hover .arrow{transform:translateX(3px)}
 #about{scroll-margin-top:110px;background-color:#fff;background-image:radial-gradient(rgba(11,27,58,.04) 1px,transparent 1.2px);background-size:24px 24px}
 .about{display:flex;flex-direction:column;gap:32px}
 .about-text{margin-top:24px;max-width:62ch;font-size:1.0625rem;line-height:1.7}
+.pc-label{margin:0 0 10px;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .panel-card{position:relative;overflow:hidden;width:100%;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--sm)}
 .panel-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--gold))}
 .pc-rows{list-style:none;margin:0;padding:0}
@@ -223,6 +224,8 @@ footer a:hover{color:#fff}
  .stats ul{padding:32px 16px}
 }
 @media (min-width:600px){
+ .about-intro{display:grid;grid-template-columns:245px minmax(0,1fr);align-items:start}
+ .about-intro .about-text{margin-top:6px;max-width:62ch}
  .pc-row{grid-template-columns:200px minmax(0,1fr);gap:0 24px}
  .navy .wrap{padding:0 24px}
  .panel{padding:60px 40px 32px}
